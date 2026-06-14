@@ -26,6 +26,7 @@ from app.config import settings
 from app.models.database import init_db
 from app.rag.vector_store import get_vector_store
 from app.utils.logger import get_logger, logger
+from app.security.api_auth import limiter
 
 # ============================================================
 # Lifespan
@@ -77,19 +78,23 @@ app = FastAPI(
     openapi_url="/openapi.json",
 )
 
-# CORS Middleware (ONLY ONE - allow all origins for demo)
+# CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins (for demo)
-    allow_credentials=True,
+    allow_origins=["https://bfai-document-intelligence.vercel.app"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 # Rate limiter
-app.state.limiter = limiter
 from app.security.api_auth import limiter
-app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+app.state.limiter = limiter
+app.add_exception_handler(
+    RateLimitExceeded,
+    _rate_limit_exceeded_handler
+)
 app.add_middleware(SlowAPIMiddleware)
 
 # Request-logging middleware
