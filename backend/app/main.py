@@ -87,6 +87,13 @@ app = FastAPI(
     redoc_url="/redoc",
     openapi_url="/openapi.json",
 )
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://your-vercel-app.vercel.app"],  # Replace with your Vercel URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 # Rate limiter
