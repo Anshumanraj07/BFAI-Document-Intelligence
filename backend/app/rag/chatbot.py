@@ -110,6 +110,9 @@ class Chatbot:
         rewritten = await self._rewrite_query(question, chat_history or [])
 
         # --- Step 2: retrieve ---
+        logger.info("QUESTION=%s", question)
+        logger.info("REWRITTEN=%s", rewritten)
+        logger.info("HISTORY_LEN=%d", len(chat_history or []))
         hits = await self.retriever.retrieve(
             rewritten,
             top_k=top_k,
@@ -209,11 +212,8 @@ class Chatbot:
                 break
 
         if last_user:
-            rewritten = (
-    f"Context: {last_user}\n"
-    f"Current question: {question}"
-)
-            return rewritten
+            return f"{last_user} {question}"
+        
 
         return question
 

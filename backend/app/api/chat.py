@@ -47,7 +47,7 @@ async def chat(
     db_history = [{"role": m.role, "content": m.content} for m in history_rows]
     
     # Merge request history with database history (request history takes precedence)
-    history = request.history + db_history if request.history else db_history
+    history = request.history if request.history else db_history
 
     # --- Persist user message ---
     user_msg = ChatMessageORM(
