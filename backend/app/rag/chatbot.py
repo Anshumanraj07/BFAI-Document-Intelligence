@@ -210,10 +210,9 @@ class Chatbot:
 
         if last_user:
             rewritten = (
-                f"Original question: {last_user}\n"
-                f"Previous answer: {last_assistant or ''}\n"
-                f"Follow-up question: {question}"
-            )
+    f"Context: {last_user}\n"
+    f"Current question: {question}"
+)
             return rewritten
 
         return question
