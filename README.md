@@ -120,7 +120,7 @@ Frontend runs on: `http://localhost:3000`
 ## Architecture
 Frontend (Next.js)
 ↓
-API Gateway (JWT Auth + Rate Limiting)
+API Gateway (API Key Auth + Rate Limiting)
 ↓
 Backend (FastAPI)
 ↓
@@ -128,7 +128,7 @@ Document Parser (pdfplumber + OCR)
 ↓
 Classification (Groq LLM)
 ↓
-Chunking + Embeddings (BAAI/bge-small)
+Chunking + Embeddings (Gemini Embedding-001)
 ↓
 Vector Store (Qdrant)
 ↓
@@ -147,7 +147,7 @@ text
 ### What I Implemented
 
 1. **API Authentication**
-   - JWT token validation on all endpoints
+   - API key authentication on protected endpoints
    - X-API-Key header required for uploads/chat
 
 2. **File Validation**
@@ -316,7 +316,6 @@ vercel deploy --prod
 2. **Table Extraction**: Complex tables may lose structure
 3. **Vector Store**: Using in-memory fallback (Qdrant not configured)
 4. **Sample Documents**: Only 1 PDF included (need 5 for full assessment)
-5. **Voice Input**: Not implemented (bonus feature)
 
 ## Future Enhancements
 

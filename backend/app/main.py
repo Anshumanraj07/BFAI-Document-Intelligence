@@ -81,8 +81,10 @@ app = FastAPI(
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://bfai-document-intelligence.vercel.app"],
-    allow_credentials=False,
+    allow_origins=[
+        "https://YOUR-VERCEL-APP.vercel.app",
+    ],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
